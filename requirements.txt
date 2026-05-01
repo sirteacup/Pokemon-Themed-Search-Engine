@@ -1,0 +1,6 @@
+# Web crawling framework used by crawler.py
+scrapy>=2.10.0
+nltk>=3.8.0
+
+# Graph analysis library used by main.py for PageRank computation
+networkx>=3.0.0

@@ -1,0 +1,77 @@
+POKEDEX SE - HOW TO RUN
+========================
+
+REQUIREMENTS
+------------
+- Python 3.10 or higher
+- Internet connection (for the initial crawl)
+
+
+STEP 1 - Install dependencies
+------------------------------
+Open a terminal in the project folder and run:
+
+    pip install -r requirements.txt
+
+This installs: scrapy, nltk, networkx (and their dependencies).
+
+
+STEP 2 - Run the crawler (first time only)
+-------------------------------------------
+If this is your first time running the project, you need to crawl
+and index Pokemon-related pages before the search engine can be used.
+
+Run the crawler on its own:
+
+    py crawler.py
+
+This will crawl Pokemon wikis and fan sites and save the results to:
+    outputsFile/crawled_data.json
+
+The crawl takes several minutes depending on your connection speed.
+A depth of 5 from 6 seed URLs means hundreds of pages will be indexed.
+
+
+STEP 3 - Start the search engine
+----------------------------------
+Once crawled data exists, start the web server:
+
+    py main.py
+
+On startup, main.py will:
+  1. Load crawled_data.json
+  2. Build (or load a cached) inverted index with BM25 + PageRank scoring
+  3. Start a local web server on port 8000
+
+Open your browser and go to:
+
+    http://localhost:8000
+
+
+STEP 4 - Search
+----------------
+Type any Pokemon-related query into the search bar and press Search.
+
+Example queries:
+  - pikachu
+  - fire type moves
+  - legendary pokemon
+  - gym leaders kanto
+
+
+NOTES
+-----
+- The outputsFile/ folder is excluded from version control (.gitignore).
+  You must run the crawler at least once to generate this data locally.
+
+- If you re-run the crawler after a previous crawl, the index will update
+  incrementally with only the new pages found.
+
+- To force a full re-index (e.g. after changing scoring logic), delete
+  outputsFile/documents.json and outputsFile/postings.json before
+  starting main.py. The index will rebuild from crawled_data.json.
+
+- To force a full re-crawl, delete the entire outputsFile/ folder.
+  The crawler will fetch all pages fresh from the internet.
+
+- Press Ctrl+C in the terminal to stop the server.

@@ -1,0 +1,10 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Scrapy cache
+.scrapy/
+
+# Generated index and crawl data (rebuild by running the crawler)
+outputsFile/
